@@ -1,0 +1,29 @@
+@boardSize: 600px;
+@rowHeight: @boardSize / 4;
+@stickHeight: @rowHeight * .8;
+@stickWidth: @boardSize / 10; 
+body {
+	background-color: #2ecc71;
+}
+#game, body, html {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	-webkit-box-align: center;
+}
+.stick {
+	display: inline-block;
+	width: @stickWidth;
+	height: @stickHeight;
+	background-color: white;
+	box-shadow: 1px 1px 1px #27ae60;
+	color: white;
+}
+.row {
+	height: @rowHeight;
+}
+.board {
+	width: @boardSize;
+	height: @boardSize;
+	margin: auto auto;
+}
