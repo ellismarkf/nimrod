@@ -1,0 +1,25 @@
+{
+  "name": "nimrod",
+  "version": "1.0.0",
+  "description": "react-powered nim-game",
+  "main": "src/js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellismarkf/nimrod.git"
+  },
+  "keywords": [
+    "game",
+    "nimrod",
+    "javascript",
+    "logic"
+  ],
+  "author": "ellismarkf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ellismarkf/nimrod/issues"
+  },
+  "homepage": "https://github.com/ellismarkf/nimrod#readme"
+}
