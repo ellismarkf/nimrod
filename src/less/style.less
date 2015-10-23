@@ -2,27 +2,64 @@
 @boardSize: 600px;
 @rowHeight: @boardSize / 4;
 @stickHeight: @rowHeight * .8;
-@stickWidth: @boardSize / 40; 
-body, button {
-	background-color: #2ecc71;
+@stickWidth: @boardSize / 40;
+@lightGreen: #2ecc71;
+@darkGreen: #27ae60;
+@purple: desaturate(hsl(145, 63%, 42%), 80%);
+body {
+	background-color: @lightGreen;
 	font-family: 'Press Start 2P', sans-serif;
-}
-#game, body, html {
-	display: flex;
-	height: 99%;
-	width: 100%;
-	-webkit-box-align: center;
 	text-align: center;
 }
+h1 {
+	position: relative;
+	display: inline-block;
+	margin: 75px 0px 55px;
+	color: white;
+}
+h1::after {
+	content: 'matchsticks';
+	color: @darkGreen;
+	position: absolute;
+	top: -5px;
+	left: 5px;
+	z-index: -1;
+}
+.btn {
+	font-family: 'Press Start 2P', sans-serif;
+	background-color: @lightGreen;
+	box-shadow: 5px -3px @darkGreen;
+	border: 1px solid white;
+	padding: 15px;
+	margin: 0px 20px 80px;
+	cursor: pointer;
+	position: relative;
+	color: @darkGreen;
+	&:hover {
+		top: -5px;
+		color: @purple;
+	}
+}
+.player-btn {
+	.btn;
+	&:disabled {
+		top: -5px;
+		color: @purple;
+	}
+}
 .stick {
+	position: relative;
 	display: inline-block;
 	width: @stickWidth;
 	height: @stickHeight;
 	background-color: white;
-	box-shadow: 1px 1px 10px 3px #27ae60;
+	box-shadow: 5px -3px @darkGreen;
 	color: white;
 	cursor: pointer;
 	margin: 0 20px;
+	&:hover {
+		top: -5px;
+	}
 }
 .row {
 	height: @rowHeight;
@@ -32,7 +69,4 @@ body, button {
 	height: @boardSize;
 	margin: auto auto;
 	position: relative;
-}
-.join-disabled {
-	opacity: .5;
 }
