@@ -1,7 +1,7 @@
 {
-  "name": "nimrod",
+  "name": "matchsticks",
   "version": "1.0.0",
-  "description": "react-powered nim-game",
+  "description": "react-powered 2-player nim-game",
   "main": "src/js/main.js",
   "scripts": {
     "build:webpack:prod": "NODE_ENV=production webpack --colors --config webpack.config.prod.js",
@@ -14,20 +14,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ellismarkf/nimrod.git"
+    "url": "git+https://github.com/ellismarkf/matchsticks.git"
   },
   "keywords": [
     "game",
-    "nimrod",
+    "matchsticks",
     "javascript",
     "logic"
   ],
   "author": "ellismarkf",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ellismarkf/nimrod/issues"
+    "url": "https://github.com/ellismarkf/matchsticks/issues"
   },
-  "homepage": "https://github.com/ellismarkf/nimrod#readme",
+  "homepage": "https://github.com/ellismarkf/matchsticks#readme",
   "devDependencies": {
     "autoprefixer": "^6.0.3",
     "babel-core": "^5.8.25",
