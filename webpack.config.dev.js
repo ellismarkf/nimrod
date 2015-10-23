@@ -4,7 +4,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
 	devtool: 'eval',
 	entry: [
-		'webpack-hot-middleware/client',
 		'./src/js/main.js'
 	],
 	output: {
@@ -27,7 +26,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('styles.css'),
-		new webpack.HotModuleReplacementPlugin()
+		new ExtractTextPlugin('styles.css')
 	]
 }
