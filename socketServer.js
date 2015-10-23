@@ -19,9 +19,9 @@ io.sockets.on('connection', function(socket){
     client.emit('connected', { message: "You are connected!", mySocketId: client.id });
 
     client.on('hostRequestNewRoom', (data) => {
-    	var thisGameId = ( Math.random() * 100000 ) | 0;
-    	client.join(thisGameId.toString());
-    	io.sockets.emit('newRoomCreated', {gameId: thisGameId});
+    	var roomId = ( Math.random() * 100000 ) | 0;
+    	client.join(roomId.toString());
+    	io.sockets.emit('newRoomCreated', {gameId: roomId});
     	client.broadcast.emit('redraw', { rows: data.rows, players: data.players });
     });
 

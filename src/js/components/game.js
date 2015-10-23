@@ -26,7 +26,6 @@ export class Game extends Component {
 		socket.on('gameOver', (data) => { alert(`player ${data.role + 1} loses!`) });
 	}
 	_requestNewRoom() {
-		console.log('p1 joined');
 		this._playerJoin(0);
 		this.setState({role: 0})
 		socket.emit('hostRequestNewRoom', this.state);
@@ -35,10 +34,9 @@ export class Game extends Component {
 		let players = this.state.players;
 		players[player].joined = true;
 		players[player].playerId = this.state.mySocketId;
-		this.setState({players: players}); //
+		this.setState({players: players});
 	}
 	_player2JoinRoom() {
-		console.log('p2 joined');
 		this._playerJoin(1)
 		this.setState({ role: 1})
 		socket.emit('playerJoinGame', this.state);}
@@ -56,7 +54,7 @@ export class Game extends Component {
 		let rows = this.state.rows;
 		rows[row].count--;
 		if (rows[row].count === 0) { this._endTurn() }
-		if ( every(rows, (value, index, array) => { return array[index].count === 0})) { socket.emit('gameOver', {role: this.state.role, gameId: this.state.gameId}) }
+		if ( every(rows, (row) => { return row.count === 0})) { socket.emit('gameOver', {role: this.state.role, gameId: this.state.gameId}) }
 		this.setState({ rows: rows });
 		socket.emit('updateBoard', {gameId: this.state.gameId, rows: this.state.rows});
 	}
@@ -88,11 +86,13 @@ export class Game extends Component {
 						</div> 
 				});
 		return (<div className='board'>
-					<button className='player-btn' disabled={ this.state.players[1].joined || this.state.players[0].joined === true ? true : false } onClick={this._requestNewRoom.bind(this)}>p1</button>
-					<button className='player-btn' disabled={ this.state.players[0].joined === true ? allPlayersJoined ? true: false : true } onClick={this._player2JoinRoom.bind(this)}>p2</button>
+					<button className={ players[0].turn === true ? 'player-btn active' : 'player-btn'} onClick={this._requestNewRoom.bind(this)}
+							disabled={ this.state.players[1].joined || this.state.players[0].joined === true ? true : false }>p1</button>
+					<button className={ players[1].turn === true ? 'player-btn active' : 'player-btn' } onClick={this._player2JoinRoom.bind(this)}
+							disabled={ allPlayersJoined ? true : false } active={ players[1].turn === true ? true : false }>p2</button>
 					{rows}
-					<button className='btn' onClick={this.restoreBoard.bind(this)}>Reset Board</button>
-					<button className='btn' onClick={this._endTurn.bind(this) }>End Turn</button>
+					<button className='control-btn' onClick={this.restoreBoard.bind(this)}>Reset Board</button>
+					<button className='control-btn' onClick={this._endTurn.bind(this) }>End Turn</button>
 				</div>) 
 	}
 }
