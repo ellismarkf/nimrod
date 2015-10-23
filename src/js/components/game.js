@@ -4,7 +4,7 @@ import {Motion, spring} from 'react-motion';
 import io from 'socket.io-client';
 const socket = io.connect();
 const rows = range(1,8,2).map( value => {return {count: value}});
-const players = range(2).map( (value, index) => {return {host: (index === 0) ? true:false, win:false, selectedRow:null, joined:false, playerId: index} });
+const players = range(2).map( (value, index) => {return {host: (index === 0) ? true:false, win:false, selectedRow:null, joined:false, playerId: index, turn: false} });
 
 class Stick extends Component {
 	constructor(props) { super(props); }
@@ -20,33 +20,43 @@ export class Game extends Component {
 		socket.on('connected', (data) => this.setState({ mySocketId: data.mySocketId }));
 		socket.on('newRoomCreated', (data) =>  this.setState({ gameId: data.gameId }));
 		socket.on('redraw', this._redraw.bind(this));
-		socket.on('gameReady', this._playTurn.bind(this));
+		socket.on('gameReady', this._startGame.bind(this));
 		socket.on('updateBoard', this._redraw.bind(this));
-
+		socket.on('startNextTurn', (data) => { let player = data.role === 0 ? 1 : 0; let players = data.players; players[player].turn = true; players[player].selectedRow = null; this.setState({ players: players }); });
+		socket.on('gameOver', (data) => { alert(`player ${data.role + 1} loses!`) });
 	}
 	_requestNewRoom() {
 		console.log('p1 joined');
 		this._playerJoin(0);
+		this.setState({role: 0})
 		socket.emit('hostRequestNewRoom', this.state);
 	}
 	_playerJoin(player) {
 		let players = this.state.players;
 		players[player].joined = true;
 		players[player].playerId = this.state.mySocketId;
-		this.setState({players: players});
+		this.setState({players: players}); //
 	}
 	_player2JoinRoom() {
 		console.log('p2 joined');
 		this._playerJoin(1)
+		this.setState({ role: 1})
 		socket.emit('playerJoinGame', this.state);}
-	_playTurn(data) {
+	_startGame(data) {
 		this._redraw(data);
-		this.endTurn();
+		let players = this.state.players;
+		players[0].turn = true;
+		this.setState({ players: players });
 	}
 	buildBoard() { return range(1,8,2).map( value => {return {count: value} }); }
 	updateBoard(index, row) {
+		let players = this.state.players;
+		players[this.state.role].selectedRow = row;
+		this.setState({ players: players });
 		let rows = this.state.rows;
 		rows[row].count--;
+		if (rows[row].count === 0) { this._endTurn() }
+		if ( every(rows, (value, index, array) => { return array[index].count === 0})) { socket.emit('gameOver', {role: this.state.role, gameId: this.state.gameId}) }
 		this.setState({ rows: rows });
 		socket.emit('updateBoard', {gameId: this.state.gameId, rows: this.state.rows});
 	}
@@ -55,24 +65,34 @@ export class Game extends Component {
 		this.setState({ rows: rows});
 	}
 	_redraw(data) { this.setState(data); }
-	endTurn() {
-		let turn = (this.state.hostTurn) ? !this.state.hostTurn : true;
-		this.setState({ hostTurn: turn });
-		socket.emit('turnEnded', { hostTurn: this.state.hostTurn });
+	_endTurn() {
+		let players = this.state.players;
+		players[this.state.role].turn = false;
+		this.setState({ players: players });
+		socket.emit('turnEnded', {players: this.state.players, gameId: this.state.gameId, role: this.state.role});
 	}
 	render() {
 		let allPlayersJoined = every(this.state.players, (player) => { return player.joined === true });
-		let rows = this.state.rows.map( (row, rowKey) =>
-			{ return <div className='row' key={rowKey}>{ range(row.count).map( (stick, key) =>
-			 		{ return <Stick row={rowKey} id={key} key={key} onClick={ allPlayersJoined ? this.updateBoard.bind(this, key, rowKey) : null } /> })}
-			</div> 
-			});
+		let players = this.state.players;
+		let myTurn = this.state.role !== undefined && players[this.state.role].turn !== undefined ? players[this.state.role].turn : false;
+		let rowChoice = this.state.role !== undefined && players[this.state.role].selectedRow !== null ? players[this.state.role].selectedRow : false;
+		let rows = rowChoice === false ?
+			this.state.rows.map( (row, rowKey) =>
+				{ return <div className='row' key={rowKey}>{ range(row.count).map( (stick, key) =>
+			 				{ return <Stick row={rowKey} id={key} key={key} onClick={ allPlayersJoined && myTurn ? this.updateBoard.bind(this, key, rowKey) : null } /> })}
+						</div> 
+				}) :
+			this.state.rows.map( (row, rowKey) =>
+				{ return <div className='row' key={rowKey}>{ range(row.count).map( (stick, key) =>
+			 				{ return <Stick row={rowKey} id={key} key={key} onClick={ allPlayersJoined && myTurn && rowChoice === rowKey ? this.updateBoard.bind(this, key, rowKey) : null } /> })}
+						</div> 
+				});
 		return (<div className='board'>
-					<button disabled={ this.state.players[1].joined === true ? true : false } onClick={this._requestNewRoom.bind(this)}>p1</button>
-					<button disabled={ this.state.players[0].joined === true ? false : true } onClick={this._player2JoinRoom.bind(this)}>p2</button>
+					<button className='player-btn' disabled={ this.state.players[1].joined || this.state.players[0].joined === true ? true : false } onClick={this._requestNewRoom.bind(this)}>p1</button>
+					<button className='player-btn' disabled={ this.state.players[0].joined === true ? allPlayersJoined ? true: false : true } onClick={this._player2JoinRoom.bind(this)}>p2</button>
 					{rows}
-					<button onClick={this.restoreBoard.bind(this)}>Reset Board</button>
-					<button onClick={this.endTurn.bind(this)}>End Turn</button>
+					<button className='btn' onClick={this.restoreBoard.bind(this)}>Reset Board</button>
+					<button className='btn' onClick={this._endTurn.bind(this) }>End Turn</button>
 				</div>) 
 	}
 }
