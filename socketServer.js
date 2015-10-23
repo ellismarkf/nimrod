@@ -8,6 +8,7 @@ var _ = require('lodash');
 if (process.env.NODE_ENV === 'development') {
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 }
+app.use(express.static(__dirname + "/"));
 app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'index.html'));
 });
