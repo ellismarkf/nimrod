@@ -3,6 +3,7 @@
 @rowHeight: @boardSize / 4;
 @stickHeight: @rowHeight * .8;
 @stickWidth: @boardSize / 40;
+@whiteGreen: lighten(hsl(145, 63%, 49%), 50%);
 @lightGreen: #2ecc71;
 @darkGreen: #27ae60;
 @purple: desaturate(hsl(145, 63%, 42%), 80%);
@@ -28,21 +29,32 @@ h1::after {
 .btn {
 	font-family: 'Press Start 2P', sans-serif;
 	background-color: @lightGreen;
-	box-shadow: 5px -3px @darkGreen;
+	box-shadow: 4px -4px @darkGreen;
 	border: 1px solid white;
 	padding: 15px;
-	margin: 0px 20px 80px;
+	margin: 20px 20px 0px;
 	cursor: pointer;
 	position: relative;
 	color: @darkGreen;
-	&:hover {
-		top: -5px;
-		color: @purple;
-	}
+	top: 0px;
+	-webkit-transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
+	transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
 }
 .player-btn {
 	.btn;
+	margin: 0px 20px 80px;
 	&:disabled {
+		top: -5px;
+		color: @purple;
+	}
+	&.active {
+		background-color: @whiteGreen;
+		border-color: @darkGreen;
+	}
+}
+.control-btn {
+	.btn;
+	&:hover {
 		top: -5px;
 		color: @purple;
 	}
@@ -57,16 +69,25 @@ h1::after {
 	color: white;
 	cursor: pointer;
 	margin: 0 20px;
+	top: 0px;
+	-webkit-transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
+	transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
 	&:hover {
-		top: -5px;
+		top: -7px;
 	}
 }
 .row {
 	height: @rowHeight;
+	position: relative;
 }
 .board {
-	width: @boardSize;
-	height: @boardSize;
-	margin: auto auto;
 	position: relative;
+}
+@keyframes bounce {
+	0% {
+		transform: translate3d(0px, 0px, 0px);
+	}
+	100% {
+		transform: translate3d(0px, -7px, 0px);
+	}
 }
