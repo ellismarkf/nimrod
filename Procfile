@@ -1,1 +1,1 @@
-web = node socketServer.js
+web: node socketServer.js
