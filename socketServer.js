@@ -6,11 +6,11 @@ var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 var _ = require('lodash');
 var port = process.env.PORT || 5000;
-app.use(express.static(__dirname + "/"));
+app.use(express.static(__dirname + "/dist"));
 app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'index.html'));
 });
-app.get('/static/nimrod.js', function(req, res){
+app.get('/dist/nimrod-compiled.js', function(req, res){
 	res.sendFile(path.join(__dirname, '/dist/nimrod-compiled.js'));
 });
 io.sockets.on('connection', function(socket){
