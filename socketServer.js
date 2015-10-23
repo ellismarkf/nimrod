@@ -5,9 +5,7 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 var _ = require('lodash');
-if (process.env.NODE_ENV === 'development') {
-	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-}
+var port = process.env.PORT || 5000;
 app.use(express.static(__dirname + "/"));
 app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'index.html'));
@@ -44,5 +42,5 @@ io.sockets.on('connection', function(socket){
     	io.to(data.gameId.toString()).emit('gameOver', { role: data.role });
     });
 });
-server.listen(3000, '0.0.0.0');
+server.listen(port);
 module.exports = app;
