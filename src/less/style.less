@@ -1,23 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
 @boardSize: 600px;
 @rowHeight: @boardSize / 4;
 @stickHeight: @rowHeight * .8;
-@stickWidth: @boardSize / 10; 
-body {
+@stickWidth: @boardSize / 40; 
+body, button {
 	background-color: #2ecc71;
+	font-family: 'Press Start 2P', sans-serif;
 }
 #game, body, html {
 	display: flex;
-	height: 100%;
+	height: 99%;
 	width: 100%;
 	-webkit-box-align: center;
+	text-align: center;
 }
 .stick {
 	display: inline-block;
 	width: @stickWidth;
 	height: @stickHeight;
 	background-color: white;
-	box-shadow: 1px 1px 1px #27ae60;
+	box-shadow: 1px 1px 10px 3px #27ae60;
 	color: white;
+	cursor: pointer;
+	margin: 0 20px;
 }
 .row {
 	height: @rowHeight;
@@ -26,4 +31,8 @@ body {
 	width: @boardSize;
 	height: @boardSize;
 	margin: auto auto;
+	position: relative;
+}
+.join-disabled {
+	opacity: .5;
 }
