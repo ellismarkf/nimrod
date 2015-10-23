@@ -27,7 +27,7 @@ and finally, navigate to ``localhost:5000``.  Et voila!
 
 This is a 2-player, socket-based game, so you'll need a friend to play with in another tab on your machine, or if you're both on the same network, on another computer, in which case the second player should navigate to whatever IP address your machine uses, eg ``192.186.1.80:5000``.  Just make sure they're using the right port (``5000``, by default).
 
-Alternatively, you can go to [matchsticks-nim.herokuapp.com](htttp://matchsticks-nim.herokuapp.com), and play online with a friend.  The same principle applies: both parties must visit the url at the same time before they can start a game.
+Alternatively, you can go to [matchsticks-nim.herokuapp.com](http://matchsticks-nim.herokuapp.com), and play online with a friend.  The same principle applies: both parties must visit the url at the same time before they can start a game.
 
 ___
 ### playing the game
