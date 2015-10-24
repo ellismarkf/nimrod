@@ -38,5 +38,9 @@ If a player takes all the sticks from one row, her turn is over, and the other p
 
 The game is over when one player takes the last remaining stick.
 
+___
+### a note on code style
+Typically I'm obsessive about code readability.  This project, however, had a 100 line limit, and to build such a stateful game in 100 lines I found myself sacrificing my usual insistence on short lines.  I consider the React component the central portion of the game, and that component weighs in at exactly 100 lines at the time of this writing.  Is the method unscrupulous? Maybe. But the game works, and luckily for me, whitespace is meaningless in Javascript.
+
 
 
