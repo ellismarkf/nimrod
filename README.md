@@ -36,7 +36,7 @@ Alternatively, you can go to [matchsticks-nim.herokuapp.com](http://matchsticks-
 ___
 ### playing the game
 
-Once two players have arrived at the game, one player should click the ``p1`` button to initialize the game.  The game starts after the second player has joined the game by clicking ``p2``, and immediately lets the player 1 take as many sticks from one row as desired.
+Once two players have arrived at the game, one player should click the ``p1`` button to initialize the game.  The game starts after the second player has joined the game by clicking ``p2``, and immediately lets player 1 take as many sticks from one row as desired.
 
 If a player takes all the sticks from one row, her turn is over, and the other player is free to take objects.  At any point after a player has taken a stick, they are free to end their turn.
 
