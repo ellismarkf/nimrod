@@ -8,10 +8,12 @@ ___
 The **objective of the game** is to leave only one object for the other player to take. In other words: **don't take the last object!**
 
 ___
-### tech stack
+### tech stack & rationale
 To make this game, I used a combination of Node, React, Socket.io, and webpack. Node handles the serving of static js, css, and html files, which are transpiled and compiled by webpack.  Socket.io manages the connection between players and emitting events React uses to manage the state of the UI.
 
 The entry point for the game code is [src/js/main.js](https://github.com/ellismarkf/matchsticks/blob/master/src/js/main.js), which iniitalizes the React component. The heart of the game code is in [src/js/components/game.js](https://github.com/ellismarkf/matchsticks/blob/master/src/js/components/game.js) for the UI and [./socketServer.js](https://github.com/ellismarkf/matchsticks/blob/master/socketServer.js) for the back end.
+
+Because the game is for two players, it also has potential application in the online dating world, as a kind of ice breaker for potential matches.  It provides an additional way to interact online that isn't just browsing information or chatting, which is important when trying to learn who a person is.
 
 ___
 ### running the game
