@@ -3,7 +3,7 @@ a react-powered, 2-player nim-game
 ___
 
 ### what's a nim-game?
-[Nim](https://en.wikipedia.org/wiki/Nim) is a game of mathematical strategy, mostly involving subtraction.  As Wikipedia will tell you, players alternatively take objects from 'heaps,' taking as many objects from one heap as they like, but only from one heap per turn. In this game, the objects are (digital) matchsticks.
+[Nim](https://en.wikipedia.org/wiki/Nim) is a game of mathematical strategy, mostly involving subtraction.  As Wikipedia will tell you, players alternatively take objects from 'heaps,' taking as many objects from one heap as they like, but only from one heap per turn.
 
 The **objective of the game** is to leave only one object for the other player to take. In other words: **don't take the last object!**
 
