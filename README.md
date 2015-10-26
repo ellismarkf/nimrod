@@ -9,7 +9,9 @@ The **objective of the game** is to leave only one object for the other player t
 
 ___
 ### tech stack
-To make this game, I used a combination of Node, React, Socket.io, and webpack. Node handles the serving of static js, css, and html files, which are transpiled and compiled by webpack.  Socket.io manages the connection between players and emitting events React uses to manage the state of the UI.  
+To make this game, I used a combination of Node, React, Socket.io, and webpack. Node handles the serving of static js, css, and html files, which are transpiled and compiled by webpack.  Socket.io manages the connection between players and emitting events React uses to manage the state of the UI.
+
+The entry point for the game code is [src/js/main.js](https://github.com/ellismarkf/matchsticks/blob/master/src/js/main.js), which iniitalizes the React component. The heart of the game code is in [src/js/components/game.js](https://github.com/ellismarkf/matchsticks/blob/master/src/js/components/game.js) for the UI and [./socketServer.js](https://github.com/ellismarkf/matchsticks/blob/master/socketServer.js) for the back end.
 
 ___
 ### running the game
@@ -40,7 +42,4 @@ The game is over when one player takes the last remaining stick.
 
 ___
 ### a note on code style
-Typically I'm obsessive about code readability.  This project, however, had a 100 line limit, and to build such a stateful game in 100 lines I found myself sacrificing my usual insistence on short lines.  I consider the React component the central portion of the game, and that component weighs in at exactly 100 lines at the time of this writing.  Is the method unscrupulous? Maybe. But the game works, and luckily for me, whitespace is meaningless in Javascript.
-
-
-
+Typically I'm obsessive about code readability.  This project, however, had a 100 line limit, and to build such a stateful game in 100 lines I found myself sacrificing my usual insistence on short lines.  I consider the React component the central portion of the game, and that component weighs in at exactly 100 lines at the time of this writing.  Is the method unscrupulous? Maybe. But the game works, and luckily for me, whitespace is not meaningful in Javascript.
