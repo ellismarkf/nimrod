@@ -24,6 +24,7 @@ Node developers will already know the drill:
 then
 
 ```
+cd matchsticks
 npm install
 npm start
 ```
