@@ -123,36 +123,52 @@ export class Game extends Component {
 			return (
 				<div className='row' key={rowKey}>
 					{ range(row.count).map( (stick, key) => {
-						return <Stick
+						return
+						<Stick
 							row={rowKey}
-								id={key}
-								key={key}
-								onClick={ rowChoice === false ?
- 									allPlayersJoined && myTurn ?
-								  	this._updateBoard.bind(this, key, rowKey) :
-								  	null
-								:
-									allPlayersJoined &&
-									myTurn && rowChoice === rowKey ?
-										this._updateBoard.bind(this, key, rowKey) :
-										null
-								}
-					  		/>
-				  		})
-					}
+							id={key}
+							key={key}
+							onClick={ rowChoice === false ?
+								allPlayersJoined && myTurn ?
+							  	this._updateBoard.bind(this, key, rowKey) :
+							  	null
+							:
+								allPlayersJoined &&
+								myTurn && rowChoice === rowKey ?
+									this._updateBoard.bind(this, key, rowKey) :
+									null
+							}
+				  		/>
+			  		}) }
 				</div>
 			)
 		});
 		return (
 			<div className='board'>
-					<button className={ players[0].turn === true ?
-										'player-btn active' : 'player-btn'} onClick={this._requestNewRoom.bind(this)}
-							disabled={ allPlayersJoined || firstPlayerJoined ? true : false }>p1</button>
-					<button className={ players[1].turn === true ? 'player-btn active' : 'player-btn' } onClick={ noPlayersJoined ? null : this._player2JoinRoom.bind(this)}
-							disabled={  firstPlayerJoined && secondPlayerJoined ? true : false }>p2</button>
-					{rows}
-					<button className='control-btn' onClick={this._endTurn.bind(this) }>End Turn</button>
-				</div>) 
+				<button
+					className={ players[0].turn === true ?
+								'player-btn active' : 'player-btn'}
+					onClick={this._requestNewRoom.bind(this)}
+					disabled={ allPlayersJoined || firstPlayerJoined ?
+								true : false }>
+						p1
+				</button>
+				<button
+					className={ players[1].turn === true ?
+								'player-btn active' : 'player-btn' }
+					onClick={ noPlayersJoined ?
+								null : this._player2JoinRoom.bind(this)}
+					disabled={  firstPlayerJoined && secondPlayerJoined ?
+								true : false }>
+					p2
+				</button>
+				{rows}
+				<button className='control-btn'
+						onClick={this._endTurn.bind(this) }>
+						End Turn
+				</button>
+			</div>
+		)
 	}
 }
 Game.defaultProps = { rows: rows, players: players};
