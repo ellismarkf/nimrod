@@ -41,7 +41,8 @@ export class Game extends Component {
 			this.setState({ players: players });
 		});
 		socket.on('gameOver', (data) => {
-			alert(`player ${data.role + 1} loses!`);
+			let outcome = data.role === this.state.role ? 'lose' : 'win';
+			alert(`You ${outcome}!`);
 		});
 	}
 	_requestNewRoom() {
@@ -123,7 +124,7 @@ export class Game extends Component {
 			return (
 				<div className='row' key={rowKey}>
 					{ range(row.count).map( (stick, key) => {
-						return
+						return (
 						<Stick
 							row={rowKey}
 							id={key}
@@ -138,7 +139,7 @@ export class Game extends Component {
 									this._updateBoard.bind(this, key, rowKey) :
 									null
 							}
-				  		/>
+				  		/> )
 			  		}) }
 				</div>
 			)
