@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {shuffle, range, every,} from 'lodash';
 import {Motion, spring} from 'react-motion';
 import io from 'socket.io-client';
+
 const socket = io.connect();
 const rows = range(1,8,2).map( value => {return {count: value}});
 const players = range(2).map( (value, index) =>
@@ -12,17 +13,20 @@ const players = range(2).map( (value, index) =>
 			 playerId: index,
 			 turn: false}
 	});
+
 class Stick extends Component {
 	constructor(props) { super(props); }
 	render() {
 		return (<span className='stick' onClick={this.props.onClick}></span>)
 	}
 }
+
 export class Game extends Component {
 	constructor(props) {
 		super(props);
 		this.state = this.props;
 	}
+
 	componentDidMount() {
 		socket.on('connected', (data) => {
 			this.setState({ mySocketId: data.mySocketId });
@@ -45,30 +49,37 @@ export class Game extends Component {
 			alert(`You ${outcome}!`);
 		});
 	}
+
 	_requestNewRoom() {
 		this._playerJoin(0);
 		this.setState({role: 0})
 		socket.emit('hostRequestNewRoom', this.state);
 	}
+
 	_playerJoin(player) {
 		let players = this.state.players;
 		players[player].joined = true;
 		players[player].playerId = this.state.mySocketId;
 		this.setState({players: players});
 	}
+
 	_player2JoinRoom() {
 		this._playerJoin(1)
 		this.setState({ role: 1})
-		socket.emit('playerJoinGame', this.state);}
+		socket.emit('playerJoinGame', this.state);
+	}
+
 	_startGame(data) {
 		this._redraw(data);
 		let players = this.state.players;
 		players[0].turn = true;
 		this.setState({ players: players });
 	}
+
 	_buildBoard() {
 		return range(1,8,2).map( value => {return {count: value} });
 	}
+
 	_updateBoard(index, row) {
 		let players = this.state.players;
 		players[this.state.role].selectedRow = row;
@@ -90,8 +101,11 @@ export class Game extends Component {
 			}
 		);
 	}
+
 	_restartGame() { /** todo */ }
+
 	_redraw(data) { this.setState(data); }
+
 	_endTurn() {
 		let players = this.state.players;
 		players[this.state.role].turn = false;
@@ -104,6 +118,7 @@ export class Game extends Component {
 			}
 		);
 	}
+
 	render() {
 		let allPlayersJoined = every(this.state.players, (player) => {
 			return player.joined === true
@@ -120,6 +135,7 @@ export class Game extends Component {
 		let rowChoice = this.state.role !== undefined &&
 						players[this.state.role].selectedRow !== null ?
 							players[this.state.role].selectedRow : false;
+
 		let rows = this.state.rows.map( (row, rowKey) => {
 			return (
 				<div className='row' key={rowKey}>
@@ -152,7 +168,7 @@ export class Game extends Component {
 					onClick={this._requestNewRoom.bind(this)}
 					disabled={ allPlayersJoined || firstPlayerJoined ?
 								true : false }>
-						p1
+					p1
 				</button>
 				<button
 					className={ players[1].turn === true ?
@@ -165,7 +181,7 @@ export class Game extends Component {
 				</button>
 				{rows}
 				<button className='control-btn'
-						onClick={this._endTurn.bind(this) }>
+						onClick={ this._endTurn.bind(this) }>
 						End Turn
 				</button>
 			</div>
