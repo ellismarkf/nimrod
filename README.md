@@ -42,7 +42,3 @@ Once two players have arrived at the game, one player should click the ``p1`` bu
 If a player takes all the sticks from one row, her turn is over, and the other player is free to take objects.  At any point after a player has taken a stick, they are free to end their turn.
 
 The game is over when one player takes the last remaining stick.
-
-___
-### a note on code style
-Typically I'm obsessive about code readability.  This project, however, had a 100 line limit, and to build such a stateful game in 100 lines I found myself sacrificing my usual insistence on short lines.  I consider the React component the central portion of the game, and that component weighs in at 99 lines at the time of this writing.  Is the method unscrupulous? Maybe. But the game works, and luckily for me, whitespace is not meaningful in Javascript.
