@@ -1,0 +1,109 @@
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+:root {
+  --board-size: 600px;
+  --row-height: calc(var(--board-size) / 4);
+  --stick-height: calc(var(--row-height) * 0.8);
+  --stick-width: calc(var(--board-size) / 40);
+  --green-1: hsl(145, 63%, 95%);
+  --green-2: hsl(145, 63%, 50%);
+  --green-3: hsl(145, 63%, 40%);
+  --green-4: hsl(145, 1%, 30%);
+
+}
+
+body {
+	background-color: var(--green-2);
+	font-family: 'Press Start 2P', monospace;
+	text-align: center;
+}
+h1 {
+	position: relative;
+	display: inline-block;
+	margin: 75px 0px 55px;
+	color: white;
+}
+h1::after {
+	content: 'matchsticks';
+	color: var(--green-3);
+	position: absolute;
+	top: -5px;
+	left: 5px;
+	z-index: -1;
+}
+button {
+	font-family: 'Press Start 2P', monospace;
+	background-color: var(--green-1);
+	box-shadow: 4px -4px var(--green-3);
+	border: 1px solid white;
+	padding: 15px;
+	margin: 20px 20px 0px;
+	cursor: pointer;
+	position: relative;
+	color: var(--green-3);
+	top: -5px;
+	transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
+}
+button {
+	margin: 0px 20px 80px;
+}
+
+button:disabled {
+  top: 0px;
+  background-color: var(--green-2);
+  color: var(--green-3);
+}
+
+button.active {
+  background-color: var(--green-1);
+  border-color: var(--green-3);
+}
+
+.control-btn button:hover {
+  top: -5px;
+  color: var(--green-4);
+}
+
+.stick {
+	position: relative;
+	display: inline-block;
+	width: var(--stick-width);
+	height: var(--stick-height);
+	background-color: white;
+	box-shadow: 5px -3px var(--green-3);
+	color: white;
+	margin: 0 20px;
+  top: 0px;
+  opacity: 1;
+	transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12), opacity .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
+}
+
+.stick:hover {
+  top: -7px;
+  cursor: pointer;
+}
+
+.stick.hidden {
+  top: 0px;
+  opacity: 0;
+}
+
+.stick.hidden:hover {
+  cursor: initial;
+}
+
+.row {
+	height: var(--row-height);
+	position: relative;
+}
+
+.board {
+	position: relative;
+}
+
+.colophon {
+	font-family: monospace;
+	color: white;
+	position: relative;
+	display: block;
+	margin: 30px 0px 10px;
+}

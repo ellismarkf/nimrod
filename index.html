@@ -2,11 +2,15 @@
 <html>
 <head>
 	<title>matchsticks</title>
+	<link href="./index.css" rel="stylesheet">
 </head>
 <body>
 	<h1>matchsticks</h1>
 	<div id="game"></div>
 	<span class='colophon'> &#60;/&#62; with &hearts; by <a href='https://github.com/ellismarkf/matchsticks'>ellismarkf</a></span>
-	<script src="./dist/nimrod-compiled.js"></script>
+	<script src="./main.js"></script>
+	<script>
+		Elm.Main.init({ node: document.querySelector('#game') })
+	</script>
 </body>
 </html>
