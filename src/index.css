@@ -58,6 +58,19 @@ button.active {
   border-color: var(--green-3);
 }
 
+button.turn {
+	background-color: transparent;
+	color: var(--green-1);
+	margin-top: 40px;
+	position: relative;
+	top: 0px;
+	transition: top .5s cubic-bezier(0.1, 0.36, 0.07, 1.12);
+}
+
+button.turn:hover {
+	top: -5px;
+}
+
 .control-btn button:hover {
   top: -5px;
   color: var(--green-4);
